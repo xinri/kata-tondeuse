@@ -1,5 +1,11 @@
+package domain.tondeuse;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
+import domain.tondeuse.valuetype.DirectionValueType;
+import domain.tondeuse.valuetype.InstructionValueType;
+import domain.tondeuse.valuetype.PositionValueType;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,7 +53,7 @@ public class TondeuseShould {
       tondeuse.order(new InstructionValueType(orderDirection));
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
+      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
     }
   }
 
@@ -67,9 +73,9 @@ public class TondeuseShould {
       tondeuse.order(new InstructionValueType("A"));
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      assertThat(tondeuse.getX()).isEqualTo(expectedX);
-      assertThat(tondeuse.getY()).isEqualTo(expectedY);
+      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(orientation);
+      Assertions.assertThat(tondeuse.getX()).isEqualTo(expectedX);
+      Assertions.assertThat(tondeuse.getY()).isEqualTo(expectedY);
     }
 
     @ParameterizedTest(name = "not advance when the tondeuse is at (0,0) and the direction is {0}")
@@ -84,9 +90,9 @@ public class TondeuseShould {
       tondeuse.order(new InstructionValueType("A"));
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      assertThat(tondeuse.getX()).isEqualTo(0);
-      assertThat(tondeuse.getY()).isEqualTo(0);
+      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(orientation);
+      Assertions.assertThat(tondeuse.getX()).isEqualTo(0);
+      Assertions.assertThat(tondeuse.getY()).isEqualTo(0);
     }
   }
 }

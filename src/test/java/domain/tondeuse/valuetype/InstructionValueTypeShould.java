@@ -1,7 +1,10 @@
+package domain.tondeuse.valuetype;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.stream.Stream;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,6 +30,6 @@ class InstructionValueTypeShould {
     var result = new InstructionValueType(value);
 
     // then
-    assertThat(result.getValue()).isEqualTo(value);
+    Assertions.assertThat(result.getValue()).isEqualTo(value);
   }
 }

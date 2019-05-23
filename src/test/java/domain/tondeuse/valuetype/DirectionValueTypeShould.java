@@ -1,7 +1,10 @@
+package domain.tondeuse.valuetype;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.stream.Stream;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,6 +30,6 @@ class DirectionValueTypeShould {
     var result = new DirectionValueType(value);
 
     // then
-    assertThat(result.getDirection()).isEqualTo(value);
+    Assertions.assertThat(result.getDirection()).isEqualTo(value);
   }
 }

@@ -1,4 +1,8 @@
-import java.util.HashMap;
+package domain.tondeuse;
+
+import domain.tondeuse.valuetype.DirectionValueType;
+import domain.tondeuse.valuetype.InstructionValueType;
+import domain.tondeuse.valuetype.PositionValueType;
 import lombok.Getter;
 
 public class Tondeuse {

@@ -1,3 +1,5 @@
+package domain.tondeuse.valuetype;
+
 import java.util.Set;
 import lombok.Getter;
 

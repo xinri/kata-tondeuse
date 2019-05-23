@@ -1,6 +1,9 @@
+package domain.tondeuse.valuetype;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class PositionValueTypeShould {
@@ -39,7 +42,7 @@ class PositionValueTypeShould {
     var result = new PositionValueType(0, 0, 1, 1);
 
     // then
-    assertThat(result)
+    Assertions.assertThat(result)
         .hasFieldOrPropertyWithValue("x", 0)
         .hasFieldOrPropertyWithValue("y", 0)
         .hasFieldOrPropertyWithValue("maxX", 1)
