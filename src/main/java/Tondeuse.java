@@ -2,15 +2,20 @@ public class Tondeuse {
 
   private int x;
   private int y;
+  private int maxX;
+  private int maxY;
   private String direction;
 
   public Tondeuse(PositionValueType position, DirectionValueType direction) {
-    this(position.getX(), position.getY(), direction.getDirection());
+    this(position.getX(), position.getY(), position.getMaxX(), position.getMaxY(),
+        direction.getDirection());
   }
 
-  private Tondeuse(int x, int y, String direction) {
+  private Tondeuse(int x, int y, int maxX, int maxY, String direction) {
     this.x = x;
     this.y = y;
+    this.maxX = maxX;
+    this.maxY = maxY;
     this.direction = direction;
   }
 
@@ -18,16 +23,24 @@ public class Tondeuse {
     if ("A".equals(order)) {
       switch (direction) {
         case "N":
-          y++;
+          if (y + 1 < maxY) {
+            y++;
+          }
           break;
         case "W":
-          x--;
+          if (x - 1 > 0) {
+            x--;
+          }
           break;
         case "S":
-          y--;
+          if (y - 1 > 0) {
+            y--;
+          }
           break;
         case "E":
-          x++;
+          if (x + 1 < maxX) {
+            x++;
+          }
           break;
       }
     } else {
