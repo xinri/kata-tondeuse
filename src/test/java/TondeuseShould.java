@@ -44,7 +44,7 @@ public class TondeuseShould {
           new DirectionValueType(originalDirection));
 
       // when
-      tondeuse.order(orderDirection);
+      tondeuse.order(new InstructionValueType(orderDirection));
 
       // then
       assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
@@ -64,7 +64,7 @@ public class TondeuseShould {
           new DirectionValueType(orientation));
 
       // when
-      tondeuse.order("A");
+      tondeuse.order(new InstructionValueType("A"));
 
       // then
       assertThat(tondeuse.getDirection()).isEqualTo(orientation);
@@ -81,7 +81,7 @@ public class TondeuseShould {
           new DirectionValueType(orientation));
 
       // when
-      tondeuse.order("A");
+      tondeuse.order(new InstructionValueType("A"));
 
       // then
       assertThat(tondeuse.getDirection()).isEqualTo(orientation);

@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import lombok.Getter;
 
 public class Tondeuse {
@@ -24,17 +25,17 @@ public class Tondeuse {
     this.direction = direction;
   }
 
-  public void order(String instruction) {
-    if ("A".equals(instruction)) {
+  public void order(InstructionValueType instruction) {
+    if ("A".equals(instruction.getValue())) {
       move();
     } else {
-      turn(instruction);
+      turn(instruction.getValue());
     }
   }
 
-  private void turn(String instruction) {
+  private void turn(String instructionValue) {
     if ("N".equals(direction)) {
-      switch (instruction) {
+      switch (instructionValue) {
         case "D":
           this.direction = "E";
           break;
@@ -43,7 +44,7 @@ public class Tondeuse {
           break;
       }
     } else if ("W".equals(direction)) {
-      switch (instruction) {
+      switch (instructionValue) {
         case "D":
           this.direction = "N";
           break;
@@ -52,7 +53,7 @@ public class Tondeuse {
           break;
       }
     } else if ("S".equals(direction)) {
-      switch (instruction) {
+      switch (instructionValue) {
         case "D":
           this.direction = "W";
           break;
@@ -61,7 +62,7 @@ public class Tondeuse {
           break;
       }
     } else if ("E".equals(direction)) {
-      switch (instruction) {
+      switch (instructionValue) {
         case "D":
           this.direction = "S";
           break;
