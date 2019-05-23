@@ -1,9 +1,14 @@
+import lombok.Getter;
+
 public class Tondeuse {
 
+  @Getter
   private int x;
+  @Getter
   private int y;
   private int maxX;
   private int maxY;
+  @Getter
   private String direction;
 
   public Tondeuse(PositionValueType position, DirectionValueType direction) {
@@ -19,80 +24,76 @@ public class Tondeuse {
     this.direction = direction;
   }
 
-  public void move(String order) {
-    if ("A".equals(order)) {
-      switch (direction) {
-        case "N":
-          if (y + 1 < maxY) {
-            y++;
-          }
+  public void order(String instruction) {
+    if ("A".equals(instruction)) {
+      move();
+    } else {
+      turn(instruction);
+    }
+  }
+
+  private void turn(String instruction) {
+    if ("N".equals(direction)) {
+      switch (instruction) {
+        case "D":
+          this.direction = "E";
           break;
-        case "W":
-          if (x - 1 > 0) {
-            x--;
-          }
-          break;
-        case "S":
-          if (y - 1 > 0) {
-            y--;
-          }
-          break;
-        case "E":
-          if (x + 1 < maxX) {
-            x++;
-          }
+        case "G":
+          this.direction = "W";
           break;
       }
-    } else {
-      if ("N".equals(direction)) {
-        switch (order) {
-          case "D":
-            this.direction = "E";
-            break;
-          case "G":
-            this.direction = "W";
-            break;
-        }
-      } else if ("W".equals(direction)) {
-        switch (order) {
-          case "D":
-            this.direction = "N";
-            break;
-          case "G":
-            this.direction = "S";
-            break;
-        }
-      } else if ("S".equals(direction)) {
-        switch (order) {
-          case "D":
-            this.direction = "W";
-            break;
-          case "G":
-            this.direction = "E";
-            break;
-        }
-      } else if ("E".equals(direction)) {
-        switch (order) {
-          case "D":
-            this.direction = "S";
-            break;
-          case "G":
-            this.direction = "N";
-            break;
-        }
+    } else if ("W".equals(direction)) {
+      switch (instruction) {
+        case "D":
+          this.direction = "N";
+          break;
+        case "G":
+          this.direction = "S";
+          break;
+      }
+    } else if ("S".equals(direction)) {
+      switch (instruction) {
+        case "D":
+          this.direction = "W";
+          break;
+        case "G":
+          this.direction = "E";
+          break;
+      }
+    } else if ("E".equals(direction)) {
+      switch (instruction) {
+        case "D":
+          this.direction = "S";
+          break;
+        case "G":
+          this.direction = "N";
+          break;
       }
     }
   }
 
-  public String getDirection() {
-    return direction;
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public int getY() {
-    return y;
+  private void move() {
+    switch (direction) {
+      case "N":
+        if (y + 1 < maxY) {
+          y++;
+        }
+        break;
+      case "W":
+        if (x - 1 > 0) {
+          x--;
+        }
+        break;
+      case "S":
+        if (y - 1 > 0) {
+          y--;
+        }
+        break;
+      case "E":
+        if (x + 1 < maxX) {
+          x++;
+        }
+        break;
+    }
   }
 }
