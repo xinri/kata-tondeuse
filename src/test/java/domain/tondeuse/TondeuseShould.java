@@ -61,7 +61,7 @@ public class TondeuseShould {
   @DisplayName("advance to")
   class AdvanceShould {
 
-    @ParameterizedTest(name = "({0}, {1}) when the tondeuse is at (5, 5), {3} oriented")
+    @ParameterizedTest(name = "({0}, {1}) when the tondeuse is at (5, 5), {2} oriented")
     @CsvSource({"5, 6, N", "4, 5, W", "5, 4, S", "6, 5, E"})
     public void advanceTo(Integer expectedX, Integer expectedY, String orientation) {
       // given
