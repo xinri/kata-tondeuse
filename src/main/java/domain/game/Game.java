@@ -1,6 +1,7 @@
 package domain.game;
 
 import domain.tondeuse.Tondeuse;
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
@@ -14,6 +15,10 @@ public class Game {
   }
 
   public List<Tondeuse> getTondeuseList() {
-    return null;
+    return Collections.emptyList();
+  }
+
+  public void addTondeuse(int x, int y, String direction, String listOfOrder) {
+
   }
 }
