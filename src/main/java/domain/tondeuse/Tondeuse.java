@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.StringJoiner;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -111,5 +112,13 @@ public class Tondeuse {
         setX(MOVE_POSITIVE_FIELD.apply(x, maxX));
         break;
     }
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(" ")
+        .add(String.valueOf(x))
+        .add(String.valueOf(y))
+        .add(direction).toString();
   }
 }

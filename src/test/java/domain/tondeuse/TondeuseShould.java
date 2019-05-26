@@ -16,6 +16,20 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class TondeuseShould {
 
+  @Test
+  public void return_1_1_N_when_to_string_is_called() {
+    // given
+    var tondeuse = new Tondeuse(
+        new PositionValueType(1, 1, 5, 5),
+        new DirectionValueType("N"));
+
+    // when
+    var result = tondeuse.toString();
+
+    // then
+    assertThat(result).isEqualTo("1 1 N");
+  }
+
   @Nested
   @DisplayName("change the direction to ")
   class ChangeDirectionShould {
