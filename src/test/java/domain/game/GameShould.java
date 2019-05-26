@@ -33,4 +33,37 @@ public class GameShould {
     assertThat(game.getTondeuseList()).extracting("x", "y", "direction")
         .contains(Tuple.tuple(0, 0, "N"));
   }
+
+  @Test
+  public void should_one_tondeuse_at_1_3_N_when_it_executes_GAGAGAGAA_on_1_2_N() {
+    // given
+    var game = new Game(5, 5);
+    game.addTondeuse(1, 2, "N", "GAGAGAGAA");
+
+    // when
+    game.execute();
+
+    // then
+    assertThat(game.getTondeuseList()).hasSize(1);
+    assertThat(game.getTondeuseList()).extracting("x", "y", "direction")
+        .contains(Tuple.tuple(1, 3, "N"));
+  }
+
+  @Test
+  public void should_execute_nominal_case1() {
+    // given
+    var game = new Game(5, 5);
+    game.addTondeuse(1, 2, "N", "GAGAGAGAA");
+    game.addTondeuse(3, 3, "E", "AADAADADDA");
+
+    // when
+    game.execute();
+
+    // then
+    assertThat(game.getTondeuseList()).hasSize(2);
+    assertThat(game.getTondeuseList()).extracting("x", "y", "direction")
+        .contains(Tuple.tuple(1, 3, "N"));
+    assertThat(game.getTondeuseList()).extracting("x", "y", "direction")
+        .contains(Tuple.tuple(5, 1, "E"));
+  }
 }

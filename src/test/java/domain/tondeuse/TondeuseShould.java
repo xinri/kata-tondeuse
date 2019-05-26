@@ -5,9 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import domain.tondeuse.valuetype.DirectionValueType;
 import domain.tondeuse.valuetype.InstructionValueType;
 import domain.tondeuse.valuetype.PositionValueType;
-import org.assertj.core.api.Assertions;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -50,10 +52,10 @@ public class TondeuseShould {
           new DirectionValueType(originalDirection));
 
       // when
-      tondeuse.order(new InstructionValueType(orderDirection));
+      tondeuse.order(orderDirection);
 
       // then
-      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
+      assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
     }
   }
 
@@ -70,12 +72,12 @@ public class TondeuseShould {
           new DirectionValueType(orientation));
 
       // when
-      tondeuse.order(new InstructionValueType("A"));
+      tondeuse.order("A");
 
       // then
-      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      Assertions.assertThat(tondeuse.getX()).isEqualTo(expectedX);
-      Assertions.assertThat(tondeuse.getY()).isEqualTo(expectedY);
+      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
+      assertThat(tondeuse.getX()).isEqualTo(expectedX);
+      assertThat(tondeuse.getY()).isEqualTo(expectedY);
     }
 
     @ParameterizedTest(name = "not advance when the tondeuse is at (0,0) and the direction is {0}")
@@ -87,12 +89,74 @@ public class TondeuseShould {
           new DirectionValueType(orientation));
 
       // when
-      tondeuse.order(new InstructionValueType("A"));
+      tondeuse.order("A");
 
       // then
-      Assertions.assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      Assertions.assertThat(tondeuse.getX()).isEqualTo(0);
-      Assertions.assertThat(tondeuse.getY()).isEqualTo(0);
+      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
+      assertThat(tondeuse.getX()).isEqualTo(0);
+      assertThat(tondeuse.getY()).isEqualTo(0);
+    }
+  }
+
+  @Nested
+  @DisplayName("apply list of movement")
+  public class ListOfMovementShould {
+
+    @Test
+    @DisplayName("and move to 1 3 N when the tondeuse is at 1 2 N and the list of movment is GAGAGAGAA")
+    public void nominalCase1() {
+      // given
+      var tondeuse = new Tondeuse(
+          new PositionValueType(1, 2, 5, 5),
+          new DirectionValueType("N"),
+          convertToInstructionValueTypeList("GAGAGAGAA"));
+
+      // when
+      for (int i = 0; i < 8; i++) {
+        tondeuse.nextStep();
+        assertThat(tondeuse.hasFinished()).isFalse();
+      }
+
+      tondeuse.nextStep();
+
+      // then
+      assertThat(tondeuse)
+          .hasFieldOrPropertyWithValue("x", 1)
+          .hasFieldOrPropertyWithValue("y", 3)
+          .hasFieldOrPropertyWithValue("direction", "N");
+      assertThat(tondeuse.hasFinished()).isTrue();
+    }
+
+    @Test
+    @DisplayName("and move to 5 1 E when the tondeuse is at 3 3 E and the list of movment is AADAADADDA")
+    public void nominalCase2() {
+      // given
+      var tondeuse = new Tondeuse(
+          new PositionValueType(3, 3, 5, 5),
+          new DirectionValueType("E"),
+          convertToInstructionValueTypeList("AADAADADDA"));
+
+      // when
+      for (int i = 0; i < 9; i++) {
+        tondeuse.nextStep();
+        assertThat(tondeuse.hasFinished()).isFalse();
+      }
+
+      tondeuse.nextStep();
+
+      // then
+      assertThat(tondeuse)
+          .hasFieldOrPropertyWithValue("x", 5)
+          .hasFieldOrPropertyWithValue("y", 1)
+          .hasFieldOrPropertyWithValue("direction", "E");
+      assertThat(tondeuse.hasFinished()).isTrue();
+    }
+
+    private List<InstructionValueType> convertToInstructionValueTypeList(String movements) {
+      return movements.chars()
+          .mapToObj(Character::toString)
+          .map(InstructionValueType::new)
+          .collect(Collectors.toList());
     }
   }
 }
