@@ -5,6 +5,7 @@ import domain.game.valuetype.LimitFieldValueType;
 import domain.tondeuse.Tondeuse;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
@@ -16,11 +17,13 @@ public class GameFileAdapter {
 
   public String executeGame(String fileName) throws IOException {
 
-    var file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+    var resources = getClass().getClassLoader().getResource(fileName);
 
-    if (!file.exists()) {
+    if (resources == null) {
       throw new IllegalArgumentException("filename cannot be found");
     }
+
+    var file = new File(resources.getFile());
 
     List<String> lines = FileUtils.readLines(file);
 
