@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/gameFeature", glue = "")
-public class GameWithCucumberShould {
+public class FieldWithCucumberShould {
 
 }

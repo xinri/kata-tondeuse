@@ -5,12 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
-public class GameFileAdapterShould {
+public class FieldFileAdapterShould {
 
   @Test
   public void nominalCaseFile() throws IOException {
     // given
-    var gameFileAdapter = new GameFileAdapter();
+    var gameFileAdapter = new FieldFileAdapter();
 
     // when
     var result = gameFileAdapter.executeGame("nominalCase.txt");

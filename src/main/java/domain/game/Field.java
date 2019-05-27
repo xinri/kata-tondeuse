@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Game {
+public class Field {
 
   private final int maxX;
   private final int maxY;
   private final List<Tondeuse> listOfTondeuse;
 
-  public Game(LimitFieldValueType limitField) {
+  public Field(LimitFieldValueType limitField) {
     this.maxX = limitField.getLimitX();
     this.maxY = limitField.getLimitY();
     this.listOfTondeuse = new ArrayList<>();

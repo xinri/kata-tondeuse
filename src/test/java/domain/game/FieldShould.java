@@ -2,20 +2,16 @@ package domain.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
 import domain.game.valuetype.LimitFieldValueType;
 import org.assertj.core.groups.Tuple;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-public class GameShould {
+public class FieldShould {
 
   @Test
   public void return_an_empty_list_when_create_an_empty_game() {
     // given
-    var game = new Game(new LimitFieldValueType(5, 5));
+    var game = new Field(new LimitFieldValueType(5, 5));
 
     // when
     game.execute();
@@ -27,7 +23,7 @@ public class GameShould {
   @Test
   public void should_one_tondeuse_at_0_0_N_when_it_is_created_at_this_position_without_movement() {
     // given
-    var game = new Game(new LimitFieldValueType(5, 5));
+    var game = new Field(new LimitFieldValueType(5, 5));
     game.addTondeuse(0, 0, "N", "");
 
     // when
@@ -42,7 +38,7 @@ public class GameShould {
   @Test
   public void should_one_tondeuse_at_1_3_N_when_it_executes_GAGAGAGAA_on_1_2_N() {
     // given
-    var game = new Game(new LimitFieldValueType(5, 5));
+    var game = new Field(new LimitFieldValueType(5, 5));
     game.addTondeuse(1, 2, "N", "GAGAGAGAA");
 
     // when
@@ -57,7 +53,7 @@ public class GameShould {
   @Test
   public void should_execute_nominal_case1() {
     // given
-    var game = new Game(new LimitFieldValueType(5, 5));
+    var game = new Field(new LimitFieldValueType(5, 5));
     game.addTondeuse(1, 2, "N", "GAGAGAGAA");
     game.addTondeuse(3, 3, "E", "AADAADADDA");
 

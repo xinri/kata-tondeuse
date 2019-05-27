@@ -1,22 +1,35 @@
 package infrastructure.adapter;
 
-import domain.game.Game;
+import domain.game.Field;
 import domain.game.valuetype.LimitFieldValueType;
 import domain.tondeuse.Tondeuse;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 
-public class GameFileAdapter {
+public class FieldFileAdapter {
 
-  public GameFileAdapter() {
+  private static final String SPACE_SEPARATOR = " ";
+
+  public FieldFileAdapter() {
   }
 
   public String executeGame(String fileName) throws IOException {
 
+    List<String> lines = retrieveFileLines(fileName);
+
+    Field game = buildFieldFromTheFirstLine(lines);
+
+    buildTondeuseListFromLines(lines, game);
+
+    game.execute();
+
+    return buildResult(game);
+  }
+
+  private List<String> retrieveFileLines(String fileName) throws IOException {
     var resources = getClass().getClassLoader().getResource(fileName);
 
     if (resources == null) {
@@ -30,27 +43,34 @@ public class GameFileAdapter {
     if (lines.size() < 0) {
       throw new IllegalArgumentException("file is empty");
     }
+    return lines;
+  }
 
-    var fieldValues = lines.get(0).split(" ");
+
+  private Field buildFieldFromTheFirstLine(List<String> lines) {
+    var fieldValues = lines.get(0).split(SPACE_SEPARATOR);
     if (fieldValues.length != 2) {
       throw new IllegalArgumentException("problem in the max size");
     }
-    var game = new Game(
+    return new Field(
         new LimitFieldValueType(Integer.valueOf(fieldValues[0]),
             Integer.valueOf(fieldValues[1])));
+  }
 
+  private void buildTondeuseListFromLines(List<String> lines, Field game) {
     for (int line = 1; line < lines.size(); line += 2) {
-      var tondeusePosition = lines.get(line).split(" ");
+      var tondeusePosition = lines.get(line).split(SPACE_SEPARATOR);
       String tondeuseOrders = lines.get(line + 1);
 
       game.addTondeuse(Integer.valueOf(tondeusePosition[0]), Integer.valueOf(tondeusePosition[1]),
           tondeusePosition[2], tondeuseOrders);
     }
+  }
 
-    game.execute();
-
+  private String buildResult(Field game) {
     return game.getTondeuseList().stream()
         .map(Tondeuse::toString)
         .collect(Collectors.joining(System.lineSeparator()));
   }
+
 }
