@@ -1,14 +1,14 @@
-package domain.game.valuetype;
+package domain.field.valuetype;
 
 import lombok.Getter;
 
 @Getter
-public class LimitFieldValueType {
+public class UpperRightLimitField {
 
   private final int limitX;
   private final int limitY;
 
-  public LimitFieldValueType(int limitX, int limitY) {
+  public UpperRightLimitField(int limitX, int limitY) {
 
     if (limitX < 0 || limitY < 0) {
       throw new IllegalArgumentException("the limit value cannot be negative");

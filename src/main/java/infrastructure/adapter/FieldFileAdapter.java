@@ -1,7 +1,7 @@
 package infrastructure.adapter;
 
-import domain.game.Field;
-import domain.game.valuetype.LimitFieldValueType;
+import domain.field.Field;
+import domain.field.valuetype.UpperRightLimitField;
 import domain.tondeuse.Tondeuse;
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class FieldFileAdapter {
       throw new IllegalArgumentException("problem in the max size");
     }
     return new Field(
-        new LimitFieldValueType(Integer.valueOf(fieldValues[0]),
+        new UpperRightLimitField(Integer.valueOf(fieldValues[0]),
             Integer.valueOf(fieldValues[1])));
   }
 

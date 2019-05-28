@@ -1,11 +1,11 @@
-package domain.game;
+package domain.field;
 
 import com.google.common.collect.ImmutableList;
-import domain.game.valuetype.LimitFieldValueType;
+import domain.field.valuetype.UpperRightLimitField;
 import domain.tondeuse.Tondeuse;
-import domain.tondeuse.valuetype.DirectionValueType;
+import domain.tondeuse.valuetype.Direction;
 import domain.tondeuse.valuetype.InstructionValueType;
-import domain.tondeuse.valuetype.PositionValueType;
+import domain.tondeuse.valuetype.PositionWithLimits;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -17,7 +17,7 @@ public class Field {
   private final int maxY;
   private final List<Tondeuse> listOfTondeuse;
 
-  public Field(LimitFieldValueType limitField) {
+  public Field(UpperRightLimitField limitField) {
     this.maxX = limitField.getLimitX();
     this.maxY = limitField.getLimitY();
     this.listOfTondeuse = new ArrayList<>();
@@ -35,8 +35,8 @@ public class Field {
 
   public void addTondeuse(int x, int y, String direction, String orders) {
     listOfTondeuse.add(
-        new Tondeuse(new PositionValueType(x, y, maxX, maxY),
-            new DirectionValueType(direction),
+        new Tondeuse(new PositionWithLimits(x, y, maxX, maxY),
+            new Direction(direction),
             convertToInstructionValueTypeList(orders)));
   }
 

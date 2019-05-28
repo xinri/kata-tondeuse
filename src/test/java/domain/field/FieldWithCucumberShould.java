@@ -1,4 +1,4 @@
-package domain.game;
+package domain.field;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

@@ -1,9 +1,9 @@
 package domain.tondeuse;
 
 import com.google.common.annotations.VisibleForTesting;
-import domain.tondeuse.valuetype.DirectionValueType;
+import domain.tondeuse.valuetype.Direction;
 import domain.tondeuse.valuetype.InstructionValueType;
-import domain.tondeuse.valuetype.PositionValueType;
+import domain.tondeuse.valuetype.PositionWithLimits;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.List;
@@ -51,11 +51,11 @@ public class Tondeuse {
   private String direction;
   private Queue<String> movementQueue;
 
-  public Tondeuse(PositionValueType position, DirectionValueType direction) {
-    this(position, direction, Collections.emptyList());
+  public Tondeuse(PositionWithLimits positionWithLimit, Direction direction) {
+    this(positionWithLimit, direction, Collections.emptyList());
   }
 
-  public Tondeuse(PositionValueType position, DirectionValueType direction,
+  public Tondeuse(PositionWithLimits position, Direction direction,
       List<InstructionValueType> listOfInstruction) {
 
     this(position.getX(), position.getY(), position.getMaxX(), position.getMaxY(),

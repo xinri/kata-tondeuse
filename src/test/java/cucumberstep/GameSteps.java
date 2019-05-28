@@ -6,8 +6,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import domain.game.Field;
-import domain.game.valuetype.LimitFieldValueType;
+import domain.field.Field;
+import domain.field.valuetype.UpperRightLimitField;
 
 public class GameSteps {
 
@@ -15,7 +15,7 @@ public class GameSteps {
 
   @Given("create a field with the upper right conner is \\({int}, {int})")
   public void createAFieldWithTheUpperRightConnerIs(int maxX, int maxY) {
-    this.field = new Field(new LimitFieldValueType(maxX, maxX));
+    this.field = new Field(new UpperRightLimitField(maxX, maxX));
   }
 
   @And("add a tondeuse at \\({int}, {int}) oriented {word} with orders {word}")

@@ -2,9 +2,9 @@ package domain.tondeuse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import domain.tondeuse.valuetype.DirectionValueType;
+import domain.tondeuse.valuetype.Direction;
 import domain.tondeuse.valuetype.InstructionValueType;
-import domain.tondeuse.valuetype.PositionValueType;
+import domain.tondeuse.valuetype.PositionWithLimits;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
@@ -20,8 +20,8 @@ public class TondeuseShould {
   public void return_1_1_N_when_to_string_is_called() {
     // given
     var tondeuse = new Tondeuse(
-        new PositionValueType(1, 1, 5, 5),
-        new DirectionValueType("N"));
+        new PositionWithLimits(1, 1, 5, 5),
+        new Direction("N"));
 
     // when
     var result = tondeuse.toString();
@@ -62,8 +62,8 @@ public class TondeuseShould {
         String originalDirection, String orderDirection, String expectedDirection) {
       // given
       var tondeuse = new Tondeuse(
-          new PositionValueType(0, 0, 10, 10),
-          new DirectionValueType(originalDirection));
+          new PositionWithLimits(0, 0, 10, 10),
+          new Direction(originalDirection));
 
       // when
       tondeuse.order(orderDirection);
@@ -82,8 +82,8 @@ public class TondeuseShould {
     public void advanceTo(Integer expectedX, Integer expectedY, String orientation) {
       // given
       var tondeuse = new Tondeuse(
-          new PositionValueType(5, 5, 10, 10),
-          new DirectionValueType(orientation));
+          new PositionWithLimits(5, 5, 10, 10),
+          new Direction(orientation));
 
       // when
       tondeuse.order("A");
@@ -99,8 +99,8 @@ public class TondeuseShould {
     public void advanceLimitField(String orientation) {
       // given
       var tondeuse = new Tondeuse(
-          new PositionValueType(0, 0, 0, 0),
-          new DirectionValueType(orientation));
+          new PositionWithLimits(0, 0, 0, 0),
+          new Direction(orientation));
 
       // when
       tondeuse.order("A");
@@ -121,8 +121,8 @@ public class TondeuseShould {
     public void nominalCase1() {
       // given
       var tondeuse = new Tondeuse(
-          new PositionValueType(1, 2, 5, 5),
-          new DirectionValueType("N"),
+          new PositionWithLimits(1, 2, 5, 5),
+          new Direction("N"),
           convertToInstructionValueTypeList("GAGAGAGAA"));
 
       // when
@@ -146,8 +146,8 @@ public class TondeuseShould {
     public void nominalCase2() {
       // given
       var tondeuse = new Tondeuse(
-          new PositionValueType(3, 3, 5, 5),
-          new DirectionValueType("E"),
+          new PositionWithLimits(3, 3, 5, 5),
+          new Direction("E"),
           convertToInstructionValueTypeList("AADAADADDA"));
 
       // when
