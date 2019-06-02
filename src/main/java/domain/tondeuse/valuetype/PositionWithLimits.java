@@ -1,17 +1,17 @@
 package domain.tondeuse.valuetype;
 
-import domain.field.valuetype.UpperRightLimitField;
+import domain.field.valuetype.LimitField;
 import lombok.Getter;
 
 @Getter
 public class PositionWithLimits {
 
   private final Position position;
-  private final UpperRightLimitField limitField;
+  private final LimitField limitField;
 
-  public PositionWithLimits(final Position position, final UpperRightLimitField limitField) {
+  public PositionWithLimits(final Position position, final LimitField limitField) {
 
-    if (position.getX() > limitField.getLimitX() || position.getY() > limitField.getLimitY()) {
+    if (position.getX() > limitField.getLimitMaxX() || position.getY() > limitField.getLimitMaxY()) {
       throw new IllegalArgumentException("error position outside the field");
     }
 
@@ -20,7 +20,7 @@ public class PositionWithLimits {
   }
 
   public PositionWithLimits(int x, int y, int maxX, int maxY) {
-    this(new Position(x, y), new UpperRightLimitField(maxX, maxY));
+    this(new Position(x, y), new LimitField(maxX, maxY));
   }
 
   public int getX() {
@@ -32,10 +32,10 @@ public class PositionWithLimits {
   }
 
   public int getMaxX() {
-    return limitField.getLimitX();
+    return limitField.getLimitMaxX();
   }
 
   public int getMaxY() {
-    return limitField.getLimitY();
+    return limitField.getLimitMaxY();
   }
 }

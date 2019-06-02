@@ -1,8 +1,10 @@
 package domain.tondeuse;
 
 import com.google.common.annotations.VisibleForTesting;
+import domain.field.valuetype.LimitField;
 import domain.tondeuse.valuetype.Direction;
 import domain.tondeuse.valuetype.InstructionValueType;
+import domain.tondeuse.valuetype.Position;
 import domain.tondeuse.valuetype.PositionWithLimits;
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -41,13 +43,15 @@ public class Tondeuse {
   private static final BiFunction<Integer, Integer, Integer> MOVE_NEGATIVE_FIELD =
       (variable, limit) -> variable - 1 >= 0 ? variable - 1 : variable;
 
-  @Getter @Setter
-  private int x;
-  @Getter @Setter
-  private int y;
+  @Getter
+  private Position position;
+  @Getter
+  private LimitField limitField;
+
   private int maxX;
   private int maxY;
-  @Getter @Setter
+  @Getter
+  @Setter
   private String direction;
   private Queue<String> movementQueue;
 
@@ -55,23 +59,16 @@ public class Tondeuse {
     this(positionWithLimit, direction, Collections.emptyList());
   }
 
-  public Tondeuse(PositionWithLimits position, Direction direction,
+  public Tondeuse(PositionWithLimits positionWithLimit, Direction direction,
       List<InstructionValueType> listOfInstruction) {
 
-    this(position.getX(), position.getY(), position.getMaxX(), position.getMaxY(),
-        direction.getDirection(),
+    this.position = positionWithLimit.getPosition();
+    this.limitField = positionWithLimit.getLimitField();
+    this.direction = direction.getDirection();
+    this.movementQueue = new ArrayDeque<>(
         listOfInstruction.stream()
             .map(InstructionValueType::getValue)
             .collect(Collectors.toList()));
-  }
-
-  private Tondeuse(int x, int y, int maxX, int maxY, String direction, List<String> listOfMouvement) {
-    this.x = x;
-    this.y = y;
-    this.maxX = maxX;
-    this.maxY = maxY;
-    this.direction = direction;
-    this.movementQueue = new ArrayDeque<>(listOfMouvement);
   }
 
   public void nextStep() {
@@ -100,16 +97,16 @@ public class Tondeuse {
   private void move() {
     switch (direction) {
       case "N":
-        setY(MOVE_POSITIVE_FIELD.apply(y, maxY));
+        position.setY(MOVE_POSITIVE_FIELD.apply(position.getY(), limitField.getLimitMaxY()));
         break;
       case "W":
-        setX(MOVE_NEGATIVE_FIELD.apply(x, maxX));
+        position.setX(MOVE_NEGATIVE_FIELD.apply(position.getX(), limitField.getLimitMaxX()));
         break;
       case "S":
-        setY(MOVE_NEGATIVE_FIELD.apply(y, maxY));
+        position.setY(MOVE_NEGATIVE_FIELD.apply(position.getY(), limitField.getLimitMaxY()));
         break;
       case "E":
-        setX(MOVE_POSITIVE_FIELD.apply(x, maxX));
+        position.setX(MOVE_POSITIVE_FIELD.apply(position.getX(), limitField.getLimitMaxX()));
         break;
     }
   }
@@ -117,8 +114,8 @@ public class Tondeuse {
   @Override
   public String toString() {
     return new StringJoiner(" ")
-        .add(String.valueOf(x))
-        .add(String.valueOf(y))
+        .add(String.valueOf(position.getX()))
+        .add(String.valueOf(position.getY()))
         .add(direction).toString();
   }
 }

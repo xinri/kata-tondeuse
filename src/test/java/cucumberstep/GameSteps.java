@@ -7,7 +7,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import domain.field.Field;
-import domain.field.valuetype.UpperRightLimitField;
+import domain.field.valuetype.LimitField;
 
 public class GameSteps {
 
@@ -15,7 +15,7 @@ public class GameSteps {
 
   @Given("create a field with the upper right conner is \\({int}, {int})")
   public void createAFieldWithTheUpperRightConnerIs(int maxX, int maxY) {
-    this.field = new Field(new UpperRightLimitField(maxX, maxX));
+    this.field = new Field(new LimitField(maxX, maxX));
   }
 
   @And("add a tondeuse at \\({int}, {int}) oriented {word} with orders {word}")
@@ -32,8 +32,8 @@ public class GameSteps {
   @Then("I find the tondeuse {int} at \\({int}, {int}) oriented {word}")
   public void iFindTheTondeuseAtOrientedN(int indice, int x, int y, String oriented) {
     assertThat(this.field.getTondeuseList().get(indice - 1))
-        .hasFieldOrPropertyWithValue("x", x)
-        .hasFieldOrPropertyWithValue("y", y)
+        .hasFieldOrPropertyWithValue("position.x", x)
+        .hasFieldOrPropertyWithValue("position.y", y)
         .hasFieldOrPropertyWithValue("direction", oriented);
   }
 }

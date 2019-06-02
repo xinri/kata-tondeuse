@@ -1,7 +1,7 @@
 package domain.field;
 
 import com.google.common.collect.ImmutableList;
-import domain.field.valuetype.UpperRightLimitField;
+import domain.field.valuetype.LimitField;
 import domain.tondeuse.Tondeuse;
 import domain.tondeuse.valuetype.Direction;
 import domain.tondeuse.valuetype.InstructionValueType;
@@ -17,9 +17,9 @@ public class Field {
   private final int maxY;
   private final List<Tondeuse> listOfTondeuse;
 
-  public Field(UpperRightLimitField limitField) {
-    this.maxX = limitField.getLimitX();
-    this.maxY = limitField.getLimitY();
+  public Field(LimitField limitField) {
+    this.maxX = limitField.getLimitMaxX();
+    this.maxY = limitField.getLimitMaxY();
     this.listOfTondeuse = new ArrayList<>();
   }
 
