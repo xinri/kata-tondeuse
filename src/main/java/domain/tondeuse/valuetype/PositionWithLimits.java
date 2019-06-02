@@ -22,20 +22,4 @@ public class PositionWithLimits {
   public PositionWithLimits(int x, int y, int maxX, int maxY) {
     this(new Position(x, y), new LimitField(maxX, maxY));
   }
-
-  public int getX() {
-    return position.getX();
-  }
-
-  public int getY() {
-    return position.getY();
-  }
-
-  public int getMaxX() {
-    return limitField.getLimitMaxX();
-  }
-
-  public int getMaxY() {
-    return limitField.getLimitMaxY();
-  }
 }

@@ -1,5 +1,6 @@
 package domain.field.valuetype;
 
+import domain.tondeuse.valuetype.Position;
 import lombok.Getter;
 
 @Getter
@@ -17,5 +18,17 @@ public class LimitField {
     }
     this.limitMaxX = limitMaxX;
     this.limitMaxY = limitMaxY;
+  }
+
+  public boolean isOutOfBounds(Position position) {
+    return hasPositionBelowLimitMin(position) || hasPositionAboveLimitMax(position);
+  }
+
+  private boolean hasPositionAboveLimitMax(Position position) {
+    return position.getX() > limitMaxX || position.getY() > limitMaxY;
+  }
+
+  private boolean hasPositionBelowLimitMin(Position position) {
+    return position.getX() < limitMinX || position.getY() < limitMinY;
   }
 }

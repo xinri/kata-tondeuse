@@ -48,8 +48,6 @@ public class Tondeuse {
   @Getter
   private LimitField limitField;
 
-  private int maxX;
-  private int maxY;
   @Getter
   @Setter
   private String direction;
