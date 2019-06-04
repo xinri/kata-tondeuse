@@ -69,7 +69,7 @@ public class TondeuseShould {
       tondeuse.order(orderDirection);
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(expectedDirection);
+      assertThat(tondeuse.toString().split(" ")[2]).isEqualTo(expectedDirection);
     }
   }
 
@@ -89,9 +89,7 @@ public class TondeuseShould {
       tondeuse.order("A");
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      assertThat(tondeuse.getPosition().getX()).isEqualTo(expectedX);
-      assertThat(tondeuse.getPosition().getY()).isEqualTo(expectedY);
+      assertThat(tondeuse.toString()).isEqualTo(expectedX + " " + expectedY + " " + orientation);
     }
 
     @ParameterizedTest(name = "not advance when the tondeuse is at (0,0) and the direction is {0}")
@@ -106,9 +104,7 @@ public class TondeuseShould {
       tondeuse.order("A");
 
       // then
-      assertThat(tondeuse.getDirection()).isEqualTo(orientation);
-      assertThat(tondeuse.getPosition().getX()).isEqualTo(0);
-      assertThat(tondeuse.getPosition().getY()).isEqualTo(0);
+      assertThat(tondeuse.toString()).isEqualTo("0 0 " + orientation);
     }
   }
 
@@ -134,10 +130,7 @@ public class TondeuseShould {
       tondeuse.nextStep();
 
       // then
-      assertThat(tondeuse)
-          .hasFieldOrPropertyWithValue("position.x", 1)
-          .hasFieldOrPropertyWithValue("position.y", 3)
-          .hasFieldOrPropertyWithValue("direction", "N");
+      assertThat(tondeuse.toString()).isEqualTo("1 3 N");
       assertThat(tondeuse.hasFinished()).isTrue();
     }
 
@@ -159,10 +152,7 @@ public class TondeuseShould {
       tondeuse.nextStep();
 
       // then
-      assertThat(tondeuse)
-          .hasFieldOrPropertyWithValue("position.x", 5)
-          .hasFieldOrPropertyWithValue("position.y", 1)
-          .hasFieldOrPropertyWithValue("direction", "E");
+      assertThat(tondeuse.toString()).isEqualTo("5 1 E");
       assertThat(tondeuse.hasFinished()).isTrue();
     }
 
