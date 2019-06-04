@@ -37,17 +37,16 @@ public class Tondeuse {
   private static final Map<String, Function<String, String>> MAP_OF_TURN =
       Map.of("D", MAP_OF_TURN_D::get, "G", MAP_OF_TURN_G::get);
 
-  private static final BiFunction<Integer, Integer, Integer> MOVE_POSITIVE_FIELD =
-      (variable, limit) -> variable + 1 <= limit ? variable + 1 : variable;
-
-  private static final BiFunction<Integer, Integer, Integer> MOVE_NEGATIVE_FIELD =
-      (variable, limit) -> variable - 1 >= 0 ? variable - 1 : variable;
+  private static final Map<String, BiFunction<Position, LimitField, Position>> moveToNewPosition =
+      Map.of("N", (position, limit) -> position.moveToNorth(limit),
+          "W", (position, limit) -> position.moveToWest(limit),
+          "S", (position, limit) -> position.moveToSouth(limit),
+          "E", (position, limit) -> position.moveToEast(limit));
 
   @Getter
   private Position position;
   @Getter
   private LimitField limitField;
-
   @Getter
   @Setter
   private String direction;
@@ -93,20 +92,7 @@ public class Tondeuse {
   }
 
   private void move() {
-    switch (direction) {
-      case "N":
-        position.setY(MOVE_POSITIVE_FIELD.apply(position.getY(), limitField.getLimitMaxY()));
-        break;
-      case "W":
-        position.setX(MOVE_NEGATIVE_FIELD.apply(position.getX(), limitField.getLimitMaxX()));
-        break;
-      case "S":
-        position.setY(MOVE_NEGATIVE_FIELD.apply(position.getY(), limitField.getLimitMaxY()));
-        break;
-      case "E":
-        position.setX(MOVE_POSITIVE_FIELD.apply(position.getX(), limitField.getLimitMaxX()));
-        break;
-    }
+    position = moveToNewPosition.get(direction).apply(position, limitField);
   }
 
   @Override

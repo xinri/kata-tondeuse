@@ -1,17 +1,15 @@
 package domain.tondeuse.valuetype;
 
+import domain.field.valuetype.LimitField;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-// FIXME : remove the setter by including movement => must avoid variable
-// FIXME : modification on setter for immutability
-@Setter
+@EqualsAndHashCode
 public class Position {
 
-  // FIXME : change thse two variables into a final one
-  private int x;
-  private int y;
+  private final int x;
+  private final int y;
 
   public Position(int x, int y) {
 
@@ -21,5 +19,37 @@ public class Position {
 
     this.x = x;
     this.y = y;
+  }
+
+  public Position moveToNorth() {
+    return new Position(x, y + 1);
+  }
+
+  public Position moveToEast() {
+    return new Position(x + 1, y);
+  }
+
+  public Position moveToWest() {
+    return new Position(x - 1, y);
+  }
+
+  public Position moveToSouth() {
+    return new Position(x, y - 1);
+  }
+
+  public Position moveToNorth(LimitField limitField) {
+    return limitField.isOutOfBounds(x, y + 1) ? this : moveToNorth();
+  }
+
+  public Position moveToEast(LimitField limitField) {
+    return limitField.isOutOfBounds(x + 1, y) ? this : moveToEast();
+  }
+
+  public Position moveToSouth(LimitField limitField) {
+    return limitField.isOutOfBounds(x, y - 1) ? this : moveToSouth();
+  }
+
+  public Position moveToWest(LimitField limitField) {
+    return limitField.isOutOfBounds(x - 1, y) ? this : moveToWest();
   }
 }

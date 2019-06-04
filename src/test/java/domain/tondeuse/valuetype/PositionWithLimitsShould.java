@@ -1,6 +1,5 @@
 package domain.tondeuse.valuetype;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.assertj.core.api.Assertions;
@@ -43,9 +42,9 @@ class PositionWithLimitsShould {
 
     // then
     Assertions.assertThat(result)
-        .hasFieldOrPropertyWithValue("x", 0)
-        .hasFieldOrPropertyWithValue("y", 0)
-        .hasFieldOrPropertyWithValue("maxX", 1)
-        .hasFieldOrPropertyWithValue("maxY", 1);
+        .hasFieldOrPropertyWithValue("position.x", 0)
+        .hasFieldOrPropertyWithValue("position.y", 0)
+        .hasFieldOrPropertyWithValue("limitField.limitMaxX", 1)
+        .hasFieldOrPropertyWithValue("limitField.limitMaxY", 1);
   }
 }
