@@ -1,6 +1,7 @@
 package application;
 
 import domain.service.MowItNowService;
+import infrastructure.adapter.FieldFileAdapter;
 import java.io.IOException;
 
 public class FileLauncher {
@@ -10,7 +11,7 @@ public class FileLauncher {
       throw new IllegalArgumentException("must have one file name as argument");
     }
 
-    var mowItNowService = new MowItNowService();
+    var mowItNowService = new MowItNowService(new FieldFileAdapter());
 
     System.out.println(mowItNowService.launchGameFromFile(args[0]));
   }

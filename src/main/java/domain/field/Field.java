@@ -24,7 +24,7 @@ public class Field {
   }
 
   public void execute() {
-    while(!listOfActiveTondeuse().isEmpty()) {
+    while (!listOfActiveTondeuse().isEmpty()) {
       listOfActiveTondeuse().forEach(Tondeuse::nextStep);
     }
   }

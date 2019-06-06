@@ -1,21 +1,17 @@
 package domain.service;
 
-import infrastructure.adapter.FieldFileAdapter;
+import domain.field.GamePlay;
 import java.io.IOException;
 
 public class MowItNowService {
 
-  private FieldFileAdapter fileAdapter;
+  private GamePlay gameAdapter;
 
-  public MowItNowService(FieldFileAdapter fileAdapter) {
-    this.fileAdapter = fileAdapter;
-  }
-
-  public MowItNowService() {
-    this(new FieldFileAdapter());
+  public MowItNowService(GamePlay gameAdapter) {
+    this.gameAdapter = gameAdapter;
   }
 
   public String launchGameFromFile(String filename) throws IOException {
-    return fileAdapter.executeGame(filename);
+    return gameAdapter.executeGame(filename);
   }
 }

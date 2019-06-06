@@ -1,6 +1,7 @@
 package infrastructure.adapter;
 
 import domain.field.Field;
+import domain.field.GamePlay;
 import domain.field.valuetype.LimitField;
 import domain.tondeuse.Tondeuse;
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 
-public class FieldFileAdapter {
+public class FieldFileAdapter implements GamePlay {
 
   private static final String SPACE_SEPARATOR = " ";
 
