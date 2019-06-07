@@ -6,7 +6,13 @@
 
   <groupId>com.xinri</groupId>
   <artifactId>kata-tondeuse</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>domain</module>
+    <module>bootstrap</module>
+    <module>infrastructure</module>
+  </modules>
 
   <properties>
     <maven.compiler.target>12</maven.compiler.target>
@@ -25,19 +31,6 @@
         <directory>${project.basedir}/src/main/resources</directory>
       </resource>
     </resources>
-
-    <!-- need for cucumber too -->
-    <testResources>
-      <testResource>
-        <directory>${project.basedir}/src/test/resources</directory>
-      </testResource>
-      <testResource>
-        <directory>${project.basedir}/src/test/java</directory>
-        <includes>
-          <include>**/*.feature</include>
-        </includes>
-      </testResource>
-    </testResources>
   </build>
 
   <dependencies>
