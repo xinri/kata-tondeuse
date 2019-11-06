@@ -2,5 +2,5 @@ package application;
 
 class FileLauncherShould {
 
-  
+
 }

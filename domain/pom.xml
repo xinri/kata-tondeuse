@@ -31,9 +31,9 @@
       </testResource>
       <testResource>
         <directory>${project.basedir}/src/test/java</directory>
-        <includes>
-          <include>**/*.feature</include>
-        </includes>
+          <includes>
+            <include>**/*.feature</include>
+          </includes>
       </testResource>
     </testResources>
   </build>
